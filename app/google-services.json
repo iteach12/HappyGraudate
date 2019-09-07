@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "681701006658",
+    "firebase_url": "https://happygraudate.firebaseio.com",
+    "project_id": "happygraudate",
+    "storage_bucket": "happygraudate.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:681701006658:android:bda9a26f84b9e364f1bcdb",
+        "android_client_info": {
+          "package_name": "com.chodingcoding.happygraudate"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "681701006658-onmdr89qm3l5t9dbercvs703hdm8ks9j.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.chodingcoding.happygraudate",
+            "certificate_hash": "de25cb393241bceb7da07a4e00cde363a3f42545"
+          }
+        },
+        {
+          "client_id": "681701006658-sc2he5do6911n1pcfq0nv2bve07sjgqq.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD7AG8SmpAoGvPegY__4SrcyMfKPLssDoQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "681701006658-sc2he5do6911n1pcfq0nv2bve07sjgqq.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
