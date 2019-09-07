@@ -5,6 +5,9 @@ buildscript {
     repositories {
         google()
         jcenter()
+
+        /*FaceBook Library*/
+        mavenCentral()
         
     }
     dependencies {
