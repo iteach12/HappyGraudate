@@ -6,8 +6,11 @@ import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
+
 import com.chodingcoding.happygraudate.R
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.storage.FirebaseStorage
+
 import kotlinx.android.synthetic.main.activity_add_photo.*
 import java.text.SimpleDateFormat
 import java.util.*
@@ -15,13 +18,19 @@ import java.util.*
 class AddPhotoActivity : AppCompatActivity() {
     var PICK_IMAGE_FROM_ALBUM = 0
     var storage:FirebaseStorage? = null
+    private var auth:FirebaseAuth? = null
     var photoUri: Uri? = null
+
+
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_add_photo)
 
-        storage = FirebaseStorage.getInstance()
+        storage = FirebaseStorage.getInstance("gs://happygraudate.appspot.com")
+        auth = FirebaseAuth.getInstance()
+
 
         var photoPickerIntent = Intent(Intent.ACTION_PICK)
         photoPickerIntent.type = "image/*"
@@ -35,7 +44,7 @@ class AddPhotoActivity : AppCompatActivity() {
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-        if(resultCode == PICK_IMAGE_FROM_ALBUM){
+        if(requestCode == PICK_IMAGE_FROM_ALBUM){
             if(resultCode == Activity.RESULT_OK){
                 //This is path to the selected image
                 photoUri = data?.data
@@ -61,10 +70,14 @@ class AddPhotoActivity : AppCompatActivity() {
 
         //FileUpload
         storageRef?.putFile(photoUri!!)?.addOnSuccessListener {
-            Toast.makeText(this,getString(R.string.upload_success), Toast.LENGTH_LONG).show()
+            Toast.makeText(this, getString(R.string.upload_success), Toast.LENGTH_LONG).show()
+
+
+
+
         }
-        storageRef?.putFile(photoUri!!)?.addOnFailureListener{
-            Toast.makeText(this,it.toString(), Toast.LENGTH_LONG).show()
-        }
+
     }
 }
+
+
