@@ -54,6 +54,9 @@ class DetailViewFragment : Fragment(){
                     contentDTOs.add(item!!)
                     contentUidList.add(snapshot.id)
                 }
+                //데이터에 변경이 있을 때 갱신해 줘야 함.
+                notifyDataSetChanged()
+
             }
 
 
@@ -91,14 +94,16 @@ class DetailViewFragment : Fragment(){
             //This code is when the button is clicked
             viewholder.detailviewitem_favorite_imageview.setOnClickListener{
                 favoriteEvent(position)
-                if(contentDTOs!![position].favorites.containsKey(uid)){
 
-                    viewholder.detailviewitem_favorite_imageview.setImageResource(R.drawable.ic_favorite)
+            }
 
-                }else{
-                    viewholder.detailviewitem_favorite_imageview.setImageResource(R.drawable.ic_favorite_border)
+            if(contentDTOs!![position].favorites.containsKey(uid)){
 
-                }
+                viewholder.detailviewitem_favorite_imageview.setImageResource(R.drawable.ic_favorite)
+
+            }else{
+                viewholder.detailviewitem_favorite_imageview.setImageResource(R.drawable.ic_favorite_border)
+
             }
 
 
