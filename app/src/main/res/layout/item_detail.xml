@@ -3,7 +3,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="wrap_content">
     <LinearLayout
         android:layout_width="match_parent"
         android:gravity="center_vertical"
@@ -13,12 +13,13 @@
         <ImageView
             android:id="@+id/detailviewitem_profile_image"
             android:src="@mipmap/ic_launcher"
-
             android:layout_margin="7.5dp"
             android:layout_width="35dp"
             android:layout_height="35dp"/>
         <TextView
             android:text="User name"
+            android:textStyle="bold"
+            android:textSize="20sp"
             android:id="@+id/detailviewitem_profile_textview"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
@@ -26,11 +27,12 @@
     </LinearLayout>
     <ImageView
         android:layout_width="match_parent"
-        android:layout_height="400dp"
+        android:layout_height="wrap_content"
         android:scaleType="fitXY"
-        android:layout_marginTop="8dp"
-
-        android:layout_marginBottom="10dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="4dp"
+        android:layout_marginBottom="5dp"
+        android:adjustViewBounds="true"
         android:id="@+id/detailviewitem_imageview_content"/>
     <LinearLayout
         android:layout_marginLeft="8dp"
@@ -47,20 +49,35 @@
             android:layout_height="35dp"
             android:id="@+id/detailviewitem_comment_imageview"
             android:src="@drawable/ic_chat_black"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="8dp"
+            android:text="좋아요 0개"
+            android:id="@+id/detailviewitem_favoritecounter_textview"/>
     </LinearLayout>
 
-    <TextView
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="8dp"
-        android:text="좋아요 0개"
-        android:id="@+id/detailviewitem_favoritecounter_textview"/>
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="8dp"
-        android:layout_marginRight="8dp"
-        android:text="Explain content"
-        android:id="@+id/detailviewitem_explain_textview"/>
+        android:orientation="horizontal">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textStyle="bold"
+            android:text="author"
+            android:id="@+id/detailviewitem_author"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
+            android:text="Explain content"
+            android:id="@+id/detailviewitem_explain_textview"/>
+    </LinearLayout>
+
+
+
 
 </LinearLayout>

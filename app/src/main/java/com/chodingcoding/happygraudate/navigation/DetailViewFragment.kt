@@ -13,6 +13,7 @@ import com.chodingcoding.happygraudate.R
 import com.chodingcoding.happygraudate.navigation.module.ContentDTO
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.Query
 import kotlinx.android.synthetic.main.fragment_detail.view.*
 import kotlinx.android.synthetic.main.item_detail.view.*
 
@@ -46,7 +47,8 @@ class DetailViewFragment : Fragment(){
         var contentUidList : ArrayList<String> = arrayListOf()
 
         init {
-            firestore?.collection("images")?.orderBy("timestamp")?.addSnapshotListener{querySnapshot, firebaseFirestoreException ->
+            firestore?.collection("images")?.orderBy("timestamp",
+                Query.Direction.DESCENDING)?.addSnapshotListener{ querySnapshot, firebaseFirestoreException ->
                 contentDTOs.clear()
                 contentUidList.clear()
                 for(snapshot in querySnapshot!!.documents){
@@ -78,18 +80,22 @@ class DetailViewFragment : Fragment(){
             var viewholder = (holder as CustomViewHolder).itemView
 
             //User id
-            viewholder.detailviewitem_profile_textview.text = contentDTOs!![position].userId
+            viewholder.detailviewitem_profile_textview.text = contentDTOs!![position].userId!!.split("@".toRegex())[0]
 
 
             //Image
             Glide.with(holder.itemView.context).load(contentDTOs!![position].imageUrl).into(viewholder.detailviewitem_imageview_content)
+
+
+            //Author
+            viewholder.detailviewitem_author.text = contentDTOs!![position].userId!!.split("@".toRegex())[0]
+
 
             //Explain of content
             viewholder.detailviewitem_explain_textview.text = contentDTOs!![position].explain
 
             //likes
             viewholder.detailviewitem_favoritecounter_textview.text = "좋아요 " + contentDTOs!![position].favoriteCount +"개"
-
 
 
             //This code is when the button is clicked
