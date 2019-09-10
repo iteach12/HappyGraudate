@@ -88,7 +88,8 @@ class DetailViewFragment : Fragment(){
             viewholder.detailviewitem_explain_textview.text = contentDTOs!![position].explain
 
             //likes
-            viewholder.detailviewitem_favoritecounter_textview.text = "Likes" + contentDTOs!![position].favoriteCount
+            viewholder.detailviewitem_favoritecounter_textview.text = "좋아요 " + contentDTOs!![position].favoriteCount +"개"
+
 
 
             //This code is when the button is clicked
