@@ -66,6 +66,10 @@ class LoginActivity : AppCompatActivity() {
     }
 
 
+    override fun onStart() {
+        super.onStart()
+        moveMainPage(auth?.currentUser)
+    }
     //my hashkey
     //3iXLOTJBvOt9oHpOAM3jY6P0JUU=
     fun printHashKey() {
@@ -203,6 +207,7 @@ class LoginActivity : AppCompatActivity() {
         if(user!=null){
             progress_bar.visibility = View.GONE
             startActivity(Intent(this, MainActivity::class.java))
+            finish()
         }
     }
 
