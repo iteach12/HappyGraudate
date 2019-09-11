@@ -87,6 +87,7 @@ class LoginActivity : AppCompatActivity() {
 
 
     fun googleLogin(){
+        progress_bar.visibility = View.VISIBLE
         var signInIntent = googleSignInClient?.signInIntent
         startActivityForResult(signInIntent, GOOGLE_LOGIN_CODE)
     }
@@ -140,6 +141,10 @@ class LoginActivity : AppCompatActivity() {
                 var account = result.signInAccount
 
                 firebaseAuthWithGoogle(account)
+
+                //아래 else 프로그래스바 때문에 넣은거임.
+            }else{
+                progress_bar.visibility = View.GONE
             }
         }
     }
@@ -196,6 +201,7 @@ class LoginActivity : AppCompatActivity() {
 
     fun moveMainPage(user:FirebaseUser?){
         if(user!=null){
+            progress_bar.visibility = View.GONE
             startActivity(Intent(this, MainActivity::class.java))
         }
     }

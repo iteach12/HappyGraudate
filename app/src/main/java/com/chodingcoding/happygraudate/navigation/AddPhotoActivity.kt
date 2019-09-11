@@ -5,6 +5,7 @@ import android.content.Intent
 import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import com.chodingcoding.happygraudate.MainActivity
 
 
 import com.chodingcoding.happygraudate.R
@@ -99,6 +100,9 @@ class AddPhotoActivity : AppCompatActivity() {
             firestore?.collection("images")?.document()?.set(contentDTO)
 
             setResult(Activity.RESULT_OK)
+
+
+
 
             finish()
         }
