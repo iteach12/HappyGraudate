@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.chodingcoding.happygraudate.R
+import com.chodingcoding.happygraudate.navigation.module.AlarmDTO
 import com.chodingcoding.happygraudate.navigation.module.ContentDTO
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
@@ -129,6 +130,7 @@ class DetailViewFragment : Fragment(){
             viewholder.detailviewitem_comment_imageview.setOnClickListener {v->
                 var intent = Intent(v.context, CommentActivity::class.java)
                 intent.putExtra("contentUid", contentUidList[position])
+                intent.putExtra("destinationUid", contentDTOs[position].uid)
                 startActivity(intent)
 
             }
@@ -150,6 +152,7 @@ class DetailViewFragment : Fragment(){
                     //When the button is not clicked
                     contentDTO?.favoriteCount = contentDTO?.favoriteCount + 1
                     contentDTO?.favorites[uid!!] = true
+                    favoriteAlarm(contentDTOs[position].uid!!)
 
 
                 }
@@ -157,6 +160,20 @@ class DetailViewFragment : Fragment(){
 
 
             }
+        }
+
+
+        fun favoriteAlarm(destinationUid : String){
+
+            var alarmDTO = AlarmDTO()
+            alarmDTO.destinationUid = destinationUid
+            alarmDTO.userId = FirebaseAuth.getInstance().currentUser?.email
+            alarmDTO.uid = FirebaseAuth.getInstance().currentUser?.uid
+            alarmDTO.kind = 0
+            alarmDTO.timestamp = System.currentTimeMillis()
+            FirebaseFirestore.getInstance().collection("alarms").document().set(alarmDTO)
+
+
         }
 
     }

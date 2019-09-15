@@ -19,6 +19,7 @@ import com.bumptech.glide.request.RequestOptions
 import com.chodingcoding.happygraudate.LoginActivity
 import com.chodingcoding.happygraudate.MainActivity
 import com.chodingcoding.happygraudate.R
+import com.chodingcoding.happygraudate.navigation.module.AlarmDTO
 import com.chodingcoding.happygraudate.navigation.module.ContentDTO
 import com.chodingcoding.happygraudate.navigation.module.FollowDTO
 import com.google.firebase.auth.FirebaseAuth
@@ -153,7 +154,7 @@ class UserFragment : Fragment(){
                 followDTO = FollowDTO()
                 followDTO!!.followerCount = 1
                 followDTO!!.followers[currentUserUid!!] = true
-
+                followerAlarm(uid!!)
                 transaction.set(tsDocFollower, followDTO!!)
                 return@runTransaction
             }
@@ -168,7 +169,7 @@ class UserFragment : Fragment(){
                 followDTO!!.followerCount = followDTO!!.followerCount + 1
                 followDTO!!.followers[currentUserUid!!] = true
 
-
+                followerAlarm(uid!!)
             }
             transaction.set(tsDocFollower, followDTO!!)
             return@runTransaction
@@ -176,6 +177,16 @@ class UserFragment : Fragment(){
     }
 
 
+
+    fun followerAlarm(destinationUid : String){
+        var alarmDTO = AlarmDTO()
+        alarmDTO.destinationUid = destinationUid
+        alarmDTO.userId = auth?.currentUser?.email
+        alarmDTO.uid = auth?.currentUser?.uid
+        alarmDTO.timestamp = System.currentTimeMillis()
+        alarmDTO.kind = 2
+        FirebaseFirestore.getInstance().collection("alarms").document().set(alarmDTO)
+    }
 
 
     fun getProfileImage(){
