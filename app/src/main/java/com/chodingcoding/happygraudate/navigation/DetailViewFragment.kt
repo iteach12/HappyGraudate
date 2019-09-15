@@ -1,5 +1,6 @@
 package com.chodingcoding.happygraudate.navigation
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 
@@ -124,6 +125,11 @@ class DetailViewFragment : Fragment(){
                 fragment.arguments = bundle
                 activity?.supportFragmentManager?.beginTransaction()?.replace(R.id.main_content, fragment)?.commit()
 
+            }
+            viewholder.detailviewitem_comment_imageview.setOnClickListener {v->
+                var intent = Intent(v.context, CommentActivity::class.java)
+                intent.putExtra("contentUid", contentUidList[position])
+                startActivity(intent)
 
             }
 
