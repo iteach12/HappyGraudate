@@ -6,6 +6,13 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="100dp">
+
+        <ProgressBar
+            android:id="@+id/progress_bar_user_fragment"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:visibility="gone" />
         <ImageView
             android:layout_width="100dp"
             android:layout_height="100dp"
