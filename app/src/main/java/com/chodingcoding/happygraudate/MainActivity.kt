@@ -15,6 +15,7 @@ import com.google.android.gms.tasks.Task
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.iid.FirebaseInstanceId
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.UploadTask
 import kotlinx.android.synthetic.main.activity_login.*
@@ -90,6 +91,8 @@ class MainActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemS
     }
 
 
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -101,7 +104,26 @@ class MainActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemS
         //Set default screen
         bottom_navigation.selectedItemId = R.id.action_home
 
+
+        //푸쉬 메세지 보내기 위한 토큰 생성 실시하기
+        registerPushToken()
+
     }
+
+
+    // 푸쉬 메세지 보내기 위한 토큰을 생성하는 함수.
+    fun registerPushToken() {
+
+        var pushToken = FirebaseInstanceId.getInstance().token
+
+        var uid = FirebaseAuth.getInstance().currentUser?.uid
+        var map = mutableMapOf<String, Any>()
+
+        map["pushToken"] = pushToken!!
+        FirebaseFirestore.getInstance().collection("pushtokens").document(uid!!).set(map)
+
+    }
+
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
