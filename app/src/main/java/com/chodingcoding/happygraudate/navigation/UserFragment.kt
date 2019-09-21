@@ -16,6 +16,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.Glide.init
 import com.bumptech.glide.request.RequestOptions
+import com.chodingcoding.happygraudate.FcmPush
 import com.chodingcoding.happygraudate.LoginActivity
 import com.chodingcoding.happygraudate.MainActivity
 import com.chodingcoding.happygraudate.R
@@ -35,6 +36,8 @@ class UserFragment : Fragment(){
     var firestore : FirebaseFirestore? = null
     var uid : String? = null
     var auth : FirebaseAuth? = null
+    var fcmPush:FcmPush? = null
+
     var currentUserUid:String? = null
     companion object{
         var PICK_PROFILE_FROM_ALBUM = 10
@@ -50,6 +53,7 @@ class UserFragment : Fragment(){
         firestore = FirebaseFirestore.getInstance()
         auth = FirebaseAuth.getInstance()
         currentUserUid = auth?.currentUser?.uid
+        fcmPush = FcmPush()
 
         if(uid == currentUserUid){
             //myPage
@@ -186,6 +190,10 @@ class UserFragment : Fragment(){
         alarmDTO.timestamp = System.currentTimeMillis()
         alarmDTO.kind = 2
         FirebaseFirestore.getInstance().collection("alarms").document().set(alarmDTO)
+
+        var message = auth?.currentUser?.email + getString(R.string.alarm_follow)
+        fcmPush?.sendMessage(destinationUid, "알림 메세지 입니다.", message)
+
     }
 
 

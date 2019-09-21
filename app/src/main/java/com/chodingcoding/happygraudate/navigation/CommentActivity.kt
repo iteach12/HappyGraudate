@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
+import com.chodingcoding.happygraudate.FcmPush
 import com.chodingcoding.happygraudate.R
 import com.chodingcoding.happygraudate.navigation.module.AlarmDTO
 import com.chodingcoding.happygraudate.navigation.module.ContentDTO
@@ -21,6 +22,8 @@ class CommentActivity : AppCompatActivity() {
 
     var contentUid :String? = null
     var destinationUid : String? = null
+    var fcmPush:FcmPush? = null
+    var user:FirebaseAuth? = null
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -28,6 +31,8 @@ class CommentActivity : AppCompatActivity() {
         setContentView(R.layout.activity_comment)
         contentUid = intent.getStringExtra("contentUid")
         destinationUid = intent.getStringExtra("destinationUid")
+        user = FirebaseAuth.getInstance()
+        fcmPush = FcmPush()
 
         comment_recyclerview.adapter = CommentRecyclerviewAdapter()
         comment_recyclerview.layoutManager = LinearLayoutManager(this)
@@ -59,7 +64,11 @@ class CommentActivity : AppCompatActivity() {
         alarmDTO.message = message
         FirebaseFirestore.getInstance().collection("alarms").document().set(alarmDTO)
 
+        var message = user?.currentUser?.email + getString(R.string.alarm_comment)
+        fcmPush?.sendMessage(destinationUid, "알림 메세지 입니다.", message)
+
     }
+
 
     inner class CommentRecyclerviewAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>(){
 

@@ -10,6 +10,7 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.chodingcoding.happygraudate.FcmPush
 import com.chodingcoding.happygraudate.R
 import com.chodingcoding.happygraudate.navigation.module.AlarmDTO
 import com.chodingcoding.happygraudate.navigation.module.ContentDTO
@@ -22,8 +23,9 @@ import kotlinx.android.synthetic.main.item_detail.view.*
 class DetailViewFragment : Fragment(){
 
     var firestore : FirebaseFirestore? = null
+    var user:FirebaseAuth? = null
     var uid : String? = null
-
+    var fcmPush : FcmPush? = null
 
 
     override fun onCreateView(
@@ -34,6 +36,8 @@ class DetailViewFragment : Fragment(){
         var view = LayoutInflater.from(activity).inflate(R.layout.fragment_detail, container, false)
         firestore = FirebaseFirestore.getInstance()
         uid = FirebaseAuth.getInstance().currentUser?.uid
+        user = FirebaseAuth.getInstance()
+        fcmPush = FcmPush()
 
         view.detailviewfragment_recyclerview.adapter = DetailViewRecyclerViewAdapter()
         view.detailviewfragment_recyclerview.layoutManager = LinearLayoutManager(activity)
@@ -172,6 +176,11 @@ class DetailViewFragment : Fragment(){
             alarmDTO.kind = 0
             alarmDTO.timestamp = System.currentTimeMillis()
             FirebaseFirestore.getInstance().collection("alarms").document().set(alarmDTO)
+
+            var message = user?.currentUser?.email + getString(R.string.alarm_favorite)
+            fcmPush?.sendMessage(destinationUid, "알림 메세지 입니다.", message)
+
+
 
 
         }

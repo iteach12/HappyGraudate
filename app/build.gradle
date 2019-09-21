@@ -46,6 +46,8 @@ dependencies {
     //ted 이미지 피커
     implementation 'gun0912.ted:tedbottompicker:1.0.4'
     implementation 'com.github.bumptech.glide:glide:4.8.0'
+    implementation 'com.google.code.gson:gson:2.8.5'
+    implementation 'com.squareup.okhttp3:okhttp:4.2.0'
 
 
 }

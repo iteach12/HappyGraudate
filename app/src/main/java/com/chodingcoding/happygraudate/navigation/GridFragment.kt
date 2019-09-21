@@ -34,6 +34,7 @@ class GridFragment : Fragment(){
         fragmentView = LayoutInflater.from(activity).inflate(R.layout.fragment_grid, container, false)
         fragmentView?.gridfragment_recyclerview?.adapter = UserFregmentRecyclerViewAdapter()
         fragmentView?.gridfragment_recyclerview?.layoutManager = GridLayoutManager(activity, 3)
+
         return fragmentView
     }
 
