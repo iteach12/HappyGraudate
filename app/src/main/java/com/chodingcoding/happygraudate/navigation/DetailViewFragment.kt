@@ -26,7 +26,7 @@ class DetailViewFragment : Fragment(){
     var user:FirebaseAuth? = null
     var uid : String? = null
     var fcmPush : FcmPush? = null
-
+    var commentList:ArrayList<ContentDTO.Comment>? = null
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -107,13 +107,28 @@ class DetailViewFragment : Fragment(){
             viewholder.detailviewitem_favoritecounter_textview.text = "좋아요 " + contentDTOs!![position].favoriteCount +"개"
 
 
+//            //댓글개수
+//            firestore?.collection("images")?.document(contentDTOs[position].uid!!)?.collection("comments")?.document()?.get()?.addOnCompleteListener {
+//                task ->
+//                if(task.isSuccessful){
+//
+//                    for(snapshot in task.result?.data!!){
+//                        commentList?.add(snapshot.toObject(ContentDTO.Comment::class.java)!!)
+//                    }
+//                }
+//            }
+//            viewholder.detailviewitem_comment_counter_textview.text = commentList?.size.toString()
+
+
+
+
             //This code is when the button is clicked
             viewholder.detailviewitem_favorite_imageview.setOnClickListener{
                 favoriteEvent(position)
 
             }
 
-            if(contentDTOs!![position].favorites.containsKey(uid)){
+            if(contentDTOs!![position].favorites.containsKey(uid!!)){
 
                 viewholder.detailviewitem_favorite_imageview.setImageResource(R.drawable.ic_favorite)
 

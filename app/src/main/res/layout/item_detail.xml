@@ -55,6 +55,15 @@
             android:layout_marginLeft="8dp"
             android:text="좋아요 0개"
             android:id="@+id/detailviewitem_favoritecounter_textview"/>
+
+<!--        <TextView-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_marginLeft="8dp"-->
+<!--            android:text="댓글 0개"-->
+<!--            android:id="@+id/detailviewitem_comment_counter_textview"/>-->
+
+
     </LinearLayout>
 
     <LinearLayout

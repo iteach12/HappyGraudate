@@ -23,6 +23,7 @@ import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.fragment_user.*
 
 
+@Suppress("DEPRECATION")
 class MainActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemSelectedListener {
 
 
@@ -112,7 +113,7 @@ class MainActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemS
 
 
     // 푸쉬 메세지 보내기 위한 토큰을 생성하는 함수.
-    fun registerPushToken() {
+    private fun registerPushToken() {
 
         var pushToken = FirebaseInstanceId.getInstance().token
 

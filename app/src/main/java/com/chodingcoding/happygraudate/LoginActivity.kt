@@ -20,6 +20,7 @@ import android.content.pm.PackageManager
 import android.util.Base64
 import android.util.Log
 import android.view.View
+import com.chodingcoding.happygraudate.navigation.module.ContentDTO
 import com.facebook.AccessToken
 import com.facebook.CallbackManager
 import com.facebook.FacebookCallback
@@ -27,10 +28,12 @@ import com.facebook.FacebookException
 import com.facebook.login.LoginManager
 import com.facebook.login.LoginResult
 import com.google.firebase.auth.FacebookAuthProvider
+import com.google.firebase.firestore.FirebaseFirestore
 
 import java.security.MessageDigest
 import java.security.NoSuchAlgorithmException
 import java.util.*
+import kotlin.collections.ArrayList
 
 
 class LoginActivity : AppCompatActivity() {
@@ -40,6 +43,13 @@ class LoginActivity : AppCompatActivity() {
     var googleSignInClient : GoogleSignInClient? = null
     var GOOGLE_LOGIN_CODE = 9001
     var callbackmanager:CallbackManager? = null
+
+
+
+
+
+
+
 
     @SuppressLint("RestrictedApi")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -63,11 +73,16 @@ class LoginActivity : AppCompatActivity() {
         googleSignInClient = GoogleSignIn.getClient(this,gso)
         callbackmanager = CallbackManager.Factory.create()
 
+
+
+
     }
 
 
     override fun onStart() {
         super.onStart()
+
+        //현재 auth가 있으면 바로 보내버리니까.. 좀만 기달려 보자. 여기서 아무것도 없으면 가지 말아야죠..
         moveMainPage(auth?.currentUser)
     }
     //my hashkey
@@ -206,7 +221,8 @@ class LoginActivity : AppCompatActivity() {
     fun moveMainPage(user:FirebaseUser?){
         if(user!=null){
             progress_bar.visibility = View.GONE
-            startActivity(Intent(this, MainActivity::class.java))
+            //startActivity(Intent(this, MainActivity::class.java))
+            startActivity(Intent(this, TestActivity::class.java))
             finish()
         }
     }

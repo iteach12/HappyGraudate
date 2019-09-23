@@ -12,10 +12,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".navigation.CommentActivity"
-            android:windowSoftInputMode="adjustPan"
-            ></activity>
-        <activity android:name=".MyTest" />
+        <activity android:name=".TestActivity"></activity>
+        <activity
+            android:name=".navigation.CommentActivity"
+            android:windowSoftInputMode="adjustPan" />
         <activity android:name=".navigation.AddPhotoActivity" />
         <activity android:name=".LoginActivity">
             <intent-filter>
@@ -49,10 +49,10 @@
 
         <meta-data
             android:name="com.google.firebase.messaging.default_notification_icon"
-            android:resource="@drawable/ic_24px"/>
+            android:resource="@drawable/ic_24px" />
         <meta-data
             android:name="com.google.firebase.messaging.default_notification_color"
-            android:resource="@color/colorAccent"/>
+            android:resource="@color/colorAccent" />
     </application>
 
 </manifest>
