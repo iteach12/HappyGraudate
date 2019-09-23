@@ -141,8 +141,14 @@
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="delete"
-            android:id="@+id/test_user_btn_delete"/>
+            android:text="delete_DOC"
+            android:id="@+id/test_user_btn_delete_doc"/>
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="delete_field"
+            android:id="@+id/test_user_btn_delete_field"/>
 
 
 

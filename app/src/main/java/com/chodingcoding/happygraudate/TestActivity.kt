@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.android.synthetic.main.activity_add_photo.*
 import kotlinx.android.synthetic.main.activity_test.*
@@ -34,7 +35,7 @@ class TestActivity : AppCompatActivity() {
 
         //데이터 생성 하기 creation
         test_user_btn.setOnClickListener {
-            firebasefiresotre?.collection("coltest")?.document()?.set(testDTO!!)?.addOnCompleteListener{
+            firebasefiresotre?.collection("coltest")?.document("doctest")?.set(testDTO!!)?.addOnCompleteListener{
                 task ->
                 if(task.isSuccessful){
                     Toast.makeText(this, "성공", Toast.LENGTH_SHORT).show()
@@ -77,14 +78,30 @@ class TestActivity : AppCompatActivity() {
         }
 
         //delete 걍 도큐먼트를 지우는 것은 되는데, 다른것도 되는지 해보자.
-        test_user_btn_delete.setOnClickListener {
+        test_user_btn_delete_doc.setOnClickListener {
             firebasefiresotre?.collection("coltest")?.document("doctest")?.delete()?.addOnCompleteListener{task ->
                 if(task.isSuccessful){
-                    Toast.makeText(this, "지우기 성공", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this, "도큐삭제 성공", Toast.LENGTH_SHORT).show()
                 }
 
 
             }
+        }
+
+        //필드 삭제하는 방법
+        test_user_btn_delete_field.setOnClickListener{
+
+            var dc = firebasefiresotre?.collection("coltest")?.document("doctest")
+            var updates = mutableMapOf<String, Any>(
+                "name" to FieldValue.delete()
+            )
+            dc?.update(updates)?.addOnCompleteListener{
+                task ->
+                if(task.isSuccessful){
+                    Toast.makeText(this, "필드삭제 성공", Toast.LENGTH_SHORT).show()
+                }
+            }
+
         }
 
 
