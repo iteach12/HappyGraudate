@@ -6,6 +6,8 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.GridLayout
 import android.widget.ImageView
+import android.widget.Toast
+
 import androidx.appcompat.widget.LinearLayoutCompat
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
@@ -57,6 +59,8 @@ class GridFragment : Fragment(){
             var width = resources.displayMetrics.widthPixels / 3
 
             var imageview = ImageView(parent.context)
+
+
             imageview.layoutParams = LinearLayoutCompat.LayoutParams(width,width)
             return CustomViewHolder(imageview)
         }
@@ -70,6 +74,15 @@ class GridFragment : Fragment(){
 
         override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
             var imageview = (holder as CustomViewHolder).imageview
+
+            //여기임
+            imageview.setOnClickListener {
+                Toast.makeText(activity, contentDTOs[position].imageUrl, Toast.LENGTH_SHORT).show()
+
+
+            }
+            //여기가 이미지뷰 클릭 리스너 테스트한 부분임
+
             Glide.with(holder.itemView.context).load(contentDTOs[position].imageUrl)
                 .apply(
                     RequestOptions()

@@ -221,8 +221,8 @@ class LoginActivity : AppCompatActivity() {
     fun moveMainPage(user:FirebaseUser?){
         if(user!=null){
             progress_bar.visibility = View.GONE
-            //startActivity(Intent(this, MainActivity::class.java))
-            startActivity(Intent(this, TestActivity::class.java))
+            startActivity(Intent(this, MainActivity::class.java))
+//            startActivity(Intent(this, TestActivity::class.java))
             finish()
         }
     }
