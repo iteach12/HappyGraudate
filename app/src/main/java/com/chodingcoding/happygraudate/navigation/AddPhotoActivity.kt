@@ -28,9 +28,6 @@ class AddPhotoActivity : AppCompatActivity() {
     var firestore:FirebaseFirestore? = null
 
 
-
-
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_add_photo)
@@ -73,13 +70,16 @@ class AddPhotoActivity : AppCompatActivity() {
         //Make filename
 
         var timestamp = SimpleDateFormat("yyyyMMdd_HHmmss").format(Date())
-        var imageFileName = "IMAGE_"+timestamp+"_.png"
+        val userName = auth?.currentUser?.email!!.split("@".toRegex())[0]
+        var imageFileName = "$userName _ $timestamp _.png"
         var storageRef = storage?.reference?.child("images")?.child(imageFileName)
 
 
         storageRef?.putFile(photoUri!!)?.continueWithTask { task: Task<UploadTask.TaskSnapshot> ->
             return@continueWithTask storageRef.downloadUrl
         }?.addOnSuccessListener {uri ->
+
+
             var contentDTO = ContentDTO()
 
             //Insert downloadUrl of image
@@ -107,32 +107,6 @@ class AddPhotoActivity : AppCompatActivity() {
             finish()
         }
 
-//        //FileUpload
-//        storageRef?.putFile(photoUri!!)?.addOnSuccessListener {
-//            storageRef.downloadUrl.addOnSuccessListener { uri ->
-//                var contentDTO = ContentDTO()
-//
-//                //Insert downloadUrl of image
-//                contentDTO.imageUrl = uri.toString()
-//
-//                //Insert uid of user
-//                contentDTO.uid = auth?.currentUser?.uid
-//
-//                //Insert userId
-//                contentDTO.userId = auth?.currentUser?.email
-//
-//                //Insert explain of content
-//                contentDTO.explain = addphoto_image_content.text.toString()
-//
-//                //Insert timestamp
-//                contentDTO.timestamp = System.currentTimeMillis()
-//
-//                firestore?.collection("images")?.document()?.set(contentDTO)
-//
-//                setResult(Activity.RESULT_OK)
-//
-//                finish()
-//            }
 
 
 
