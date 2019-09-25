@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -17,12 +18,14 @@ import com.chodingcoding.happygraudate.navigation.module.ContentDTO
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.Query
+import com.google.firebase.storage.FirebaseStorage
 import kotlinx.android.synthetic.main.fragment_detail.view.*
 import kotlinx.android.synthetic.main.item_detail.view.*
 
 class DetailViewFragment : Fragment(){
 
     var firestore : FirebaseFirestore? = null
+    var firebaseStorage:FirebaseStorage? = null
     var user:FirebaseAuth? = null
     var uid : String? = null
     var fcmPush : FcmPush? = null
@@ -37,6 +40,7 @@ class DetailViewFragment : Fragment(){
         firestore = FirebaseFirestore.getInstance()
         uid = FirebaseAuth.getInstance().currentUser?.uid
         user = FirebaseAuth.getInstance()
+        firebaseStorage = FirebaseStorage.getInstance()
         fcmPush = FcmPush()
 
         view.detailviewfragment_recyclerview.adapter = DetailViewRecyclerViewAdapter()
@@ -102,6 +106,36 @@ class DetailViewFragment : Fragment(){
 
             //Explain of content
             viewholder.detailviewitem_explain_textview.text = contentDTOs!![position].explain
+
+
+            if(contentDTOs[position].userId == user?.currentUser?.email){
+                viewholder.detailviewitem_setting_img.visibility = View.VISIBLE
+                viewholder.detailviewitem_setting_img.setOnClickListener {
+
+
+                    var ref = firebaseStorage?.reference?.child("images")?.child(
+                        contentDTOs[position].fileName!!)
+                    ref?.delete()?.addOnCompleteListener {
+                        task ->
+                        if(task.isSuccessful){
+                            firestore?.collection("images")?.document(contentDTOs[position].fileName!!)?.delete()?.addOnCompleteListener {
+                                task ->
+                                if(task.isSuccessful){
+                                    Toast.makeText(activity, "게시물 삭제가 완료되었습니다.", Toast.LENGTH_LONG).show()
+                                }
+
+                            }
+                        }
+                    }
+
+
+
+
+                }
+            }else{
+                viewholder.detailviewitem_setting_img.visibility = View.GONE
+            }
+
 
             //likes
             viewholder.detailviewitem_favoritecounter_textview.text = "좋아요 " + contentDTOs!![position].favoriteCount +"개"

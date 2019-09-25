@@ -97,7 +97,10 @@ class AddPhotoActivity : AppCompatActivity() {
             //Insert timestamp
             contentDTO.timestamp = System.currentTimeMillis()
 
-            firestore?.collection("images")?.document()?.set(contentDTO)
+            //File name
+            contentDTO.fileName = imageFileName
+
+            firestore?.collection("images")?.document(imageFileName)?.set(contentDTO)
 
             setResult(Activity.RESULT_OK)
 

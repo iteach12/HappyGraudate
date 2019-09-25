@@ -4,7 +4,7 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:gravity="center_vertical"
         android:layout_height="50dp"
@@ -20,11 +20,24 @@
             android:text="User name"
             android:textStyle="bold"
             android:textSize="20sp"
+            android:layout_toRightOf="@+id/detailviewitem_profile_image"
+            android:layout_centerInParent="true"
             android:id="@+id/detailviewitem_profile_textview"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/detailviewitem_setting_img"
+            android:layout_marginRight="7.5dp"
+            android:layout_centerInParent="true"
+            android:layout_alignParentRight="true"
+            android:src="@android:drawable/ic_delete"
+            android:visibility="gone"
+            />
 
-    </LinearLayout>
+
+    </RelativeLayout>
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
