@@ -44,7 +44,10 @@ class AlarmFragment : Fragment(){
                     alarmDTOList.clear()
                     if(querySnapshot == null)return@addSnapshotListener
                     for(snapshot in querySnapshot?.documents!!){
-                        alarmDTOList.add(snapshot.toObject(AlarmDTO::class.java)!!)
+                        if(!snapshot.toObject(AlarmDTO::class.java)!!.alreadyRead!!){
+                            alarmDTOList.add(snapshot.toObject(AlarmDTO::class.java)!!)
+                        }
+
 
                     }
                     alarmDTOList.sortByDescending { it.timestamp }
@@ -63,6 +66,12 @@ class AlarmFragment : Fragment(){
             val profileImage = holder.itemView.commentviewitem_imageview_profile
             val commentTextView = holder.itemView.commentviewitem_textview_profile
             val commentTextViewMessage = holder.itemView.commentviewitem_textview_comment
+
+//            commentTextView.setOnClickListener {
+//                val firestore = FirebaseFirestore.getInstance()
+//                firestore?.collection("alarms")?.whereEqualTo()
+//
+//            }
 
             FirebaseFirestore.getInstance().collection("profileImages")
                 .document(alarmDTOList[position].uid!!).get().addOnCompleteListener { task ->

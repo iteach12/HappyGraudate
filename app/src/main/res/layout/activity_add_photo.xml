@@ -57,5 +57,12 @@
         android:id="@+id/addphoto_btn_upload"
         android:theme="@style/ButtonStyle"/>
 
+    <com.airbnb.lottie.LottieAnimationView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:id="@+id/loading_lottie"
+        />
+
 
 </RelativeLayout>

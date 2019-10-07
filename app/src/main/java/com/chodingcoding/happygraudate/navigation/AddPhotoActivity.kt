@@ -5,6 +5,7 @@ import android.content.Intent
 import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
 import com.chodingcoding.happygraudate.MainActivity
 
 
@@ -17,6 +18,7 @@ import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.UploadTask
 
 import kotlinx.android.synthetic.main.activity_add_photo.*
+import kotlinx.android.synthetic.main.activity_add_photo.view.*
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -40,6 +42,13 @@ class AddPhotoActivity : AppCompatActivity() {
         var photoPickerIntent = Intent(Intent.ACTION_PICK)
         photoPickerIntent.type = "image/*"
         startActivityForResult(photoPickerIntent, PICK_IMAGE_FROM_ALBUM)
+
+        loading_lottie.setAnimation("loading_progress_lottie.json")
+        loading_lottie.scale = 0.2f
+        loading_lottie.playAnimation()
+        loading_lottie.loop(true)
+
+
 
         addphoto_btn_upload.setOnClickListener {
             contentUpload()

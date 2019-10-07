@@ -62,6 +62,7 @@ class CommentActivity : AppCompatActivity() {
         alarmDTO.timestamp = System.currentTimeMillis()
         alarmDTO.kind = 1
         alarmDTO.message = message
+        alarmDTO.alreadyRead = false
         FirebaseFirestore.getInstance().collection("alarms").document().set(alarmDTO)
 
         var message = user?.currentUser?.email + getString(R.string.alarm_comment)
