@@ -189,6 +189,7 @@ class UserFragment : Fragment(){
         alarmDTO.uid = auth?.currentUser?.uid
         alarmDTO.timestamp = System.currentTimeMillis()
         alarmDTO.kind = 2
+        alarmDTO.alreadyRead = false
         FirebaseFirestore.getInstance().collection("alarms").document().set(alarmDTO)
 
         var message = auth?.currentUser?.email + getString(R.string.alarm_follow)

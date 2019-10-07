@@ -234,6 +234,7 @@ class DetailViewFragment : Fragment(){
             alarmDTO.uid = FirebaseAuth.getInstance().currentUser?.uid
             alarmDTO.kind = 0
             alarmDTO.timestamp = System.currentTimeMillis()
+            alarmDTO.alreadyRead = false
             FirebaseFirestore.getInstance().collection("alarms").document().set(alarmDTO)
 
             var message = user?.currentUser?.email + getString(R.string.alarm_favorite)
