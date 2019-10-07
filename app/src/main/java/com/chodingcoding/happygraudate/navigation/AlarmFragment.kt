@@ -45,7 +45,10 @@ class AlarmFragment : Fragment(){
                     if(querySnapshot == null)return@addSnapshotListener
                     for(snapshot in querySnapshot?.documents!!){
 
-                        if(snapshot.toObject(AlarmDTO::class.java)!!.alreadyRead == false)
+                        if(snapshot.toObject(AlarmDTO::class.java)!!.alreadyRead == false &&
+                            (snapshot.toObject(AlarmDTO::class.java)!!.uid !=
+                                    snapshot.toObject(AlarmDTO::class.java)!!.destinationUid))
+
                             alarmDTOList.add(snapshot.toObject(AlarmDTO::class.java)!!)
 
 
