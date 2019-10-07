@@ -6,6 +6,7 @@ import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
+import com.airbnb.lottie.LottieAnimationView
 import com.chodingcoding.happygraudate.MainActivity
 
 
@@ -43,17 +44,36 @@ class AddPhotoActivity : AppCompatActivity() {
         photoPickerIntent.type = "image/*"
         startActivityForResult(photoPickerIntent, PICK_IMAGE_FROM_ALBUM)
 
-        loading_lottie.setAnimation("loading_progress_lottie.json")
-        loading_lottie.scale = 0.2f
-        loading_lottie.playAnimation()
-        loading_lottie.loop(true)
-
+//        loading_lottie.setAnimation("loading_progress_lottie.json")
+        makeMyLottie(loading_lottie, "loading_progress_lottie.json", 0.2f)
 
 
         addphoto_btn_upload.setOnClickListener {
             contentUpload()
+
+            addphoto_btn_upload.isEnabled = false
         }
 
+    }
+
+
+    fun makeMyLottie(myLottie:LottieAnimationView, fileName:String, scale:Float){
+        myLottie.setAnimation(fileName)
+        myLottie.scale = scale
+        myLottie.visibility = View.GONE
+    }
+
+
+    fun startMyLottie(start_lottie:LottieAnimationView){
+        start_lottie?.visibility = View.VISIBLE
+        start_lottie?.loop(true)
+        start_lottie?.playAnimation()
+
+    }
+    fun stopMyLottie(stop_lottie:LottieAnimationView){
+        stop_lottie?.visibility = View.GONE
+        stop_lottie?.loop(false)
+        stop_lottie?.pauseAnimation()
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -82,6 +102,18 @@ class AddPhotoActivity : AppCompatActivity() {
         val userName = auth?.currentUser?.email!!.split("@".toRegex())[0]
         var imageFileName = "$userName _ $timestamp _.png"
         var storageRef = storage?.reference?.child("images")?.child(imageFileName)
+
+
+        //lottie 시작
+        startMyLottie(loading_lottie)
+
+
+
+//        loading_lottie.visibility = View.VISIBLE
+//        loading_lottie.playAnimation()
+//        loading_lottie.loop(true)
+
+
 
 
         storageRef?.putFile(photoUri!!)?.continueWithTask { task: Task<UploadTask.TaskSnapshot> ->
@@ -114,7 +146,13 @@ class AddPhotoActivity : AppCompatActivity() {
             setResult(Activity.RESULT_OK)
 
 
+            //내 로띠에 멈추기
+            stopMyLottie(loading_lottie)
+//            loading_lottie.pauseAnimation()
+//            loading_lottie.visibility = View.GONE
 
+
+            addphoto_btn_upload.isEnabled = true
 
             finish()
         }
@@ -126,10 +164,3 @@ class AddPhotoActivity : AppCompatActivity() {
         }
 
     }
-
-
-
-
-
-
-
