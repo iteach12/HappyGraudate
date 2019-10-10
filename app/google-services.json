@@ -15,6 +15,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "681701006658-9t1d52vjdtlfb1k36i696lkm29rvfdcu.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.chodingcoding.happygraudate",
+            "certificate_hash": "92da35a66c22c004cdd1d29db114511990286e48"
+          }
+        },
+        {
           "client_id": "681701006658-onmdr89qm3l5t9dbercvs703hdm8ks9j.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {

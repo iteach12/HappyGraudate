@@ -1,7 +1,9 @@
 package com.chodingcoding.happygraudate.navigation
 
+import android.app.AlertDialog
 import android.content.Intent
 import android.os.Bundle
+import android.view.ContextThemeWrapper
 import android.view.LayoutInflater
 
 import android.view.View
@@ -118,21 +120,37 @@ class DetailViewFragment : Fragment(){
                 viewholder.detailviewitem_setting_img.visibility = View.VISIBLE
                 viewholder.detailviewitem_setting_img.setOnClickListener {
 
+                    val builder = AlertDialog.Builder(ContextThemeWrapper(activity, R.style.Theme_AppCompat_Light_Dialog))
+                    builder.setTitle("게시물 삭제")
+                    builder.setMessage("정말로 삭제하시겠습니까?")
 
-                    var ref = firebaseStorage?.reference?.child("images")?.child(
-                        contentDTOs[position].fileName!!)
-                    ref?.delete()?.addOnCompleteListener {
-                        task ->
-                        if(task.isSuccessful){
-                            firestore?.collection("images")?.document(contentDTOs[position].fileName!!)?.delete()?.addOnCompleteListener {
+                    /*builder.setPositiveButton("확인") {dialog, id ->
+                    }
+                    builder.setNegativeButton("취소") {dialog, id ->
+                    }*/
+                    builder.setPositiveButton("확인") { _, _ ->
+                        var ref = firebaseStorage?.reference?.child("images")?.child(
+                            contentDTOs[position].fileName!!)
+                        ref?.delete()?.addOnCompleteListener {
                                 task ->
-                                if(task.isSuccessful){
-                                    Toast.makeText(activity, "게시물 삭제가 완료되었습니다.", Toast.LENGTH_LONG).show()
-                                }
+                            if(task.isSuccessful){
+                                firestore?.collection("images")?.document(contentDTOs[position].fileName!!)?.delete()?.addOnCompleteListener {
+                                        task ->
+                                    if(task.isSuccessful){
+                                        Toast.makeText(activity, "게시물 삭제가 완료되었습니다.", Toast.LENGTH_LONG).show()
+                                    }
 
+                                }
                             }
                         }
+
                     }
+                    builder.setNegativeButton("취소") { _, _ ->
+
+                    }
+
+                    builder.show()
+
 
 
 
